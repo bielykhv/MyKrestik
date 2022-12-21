@@ -41,12 +41,6 @@ class GameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
        touch(tvOptions)
-//        charList.add('X')
-//        charList.add('0')
-//        charList.add('X')
-//        charList.add('0')
-//        Log.d("Mylog", "${charList.last()}")
-//        println("$charList")
 
 
     }
