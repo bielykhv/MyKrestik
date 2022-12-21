@@ -5,4 +5,5 @@
     <string name="player1">Player X win</string>
     <string name="player0">Player 0 win</string>
     <string name="let_go">Lets go</string>
+    <string name="draw">Draw, start again</string>
 </resources>

@@ -40,6 +40,7 @@ class GameFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         touch(tvOptions)
         binding.image.setOnClickListener {
+            charList.clear()
             clearFields(tvOptions)
         }
 
@@ -116,7 +117,25 @@ class GameFragment : Fragment() {
             for (i in list) i.isClickable = false
             charList.clear()
 
-        } else return
+        }else if (checkCells(list)){
+            binding.textView.text = getString(R.string.draw)
+
+
+        }else return
+
+
+    }
+    private fun checkCells(list: List<TextView>):Boolean{
+        var state : Boolean
+        val checkList = mutableListOf<String>()
+        for (i in list)
+            if (i.text.toString()!= ""){
+                checkList.add(i.text.toString())
+            }
+        state = checkList.size == 9
+
+
+        return state
     }
 
     override fun onDestroy() {
