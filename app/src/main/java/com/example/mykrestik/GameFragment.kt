@@ -19,12 +19,12 @@ class GameFragment : Fragment() {
             add(binding.view1)
             add(binding.view2)
             add(binding.view3)
+            add(binding.view4)
             add(binding.view5)
             add(binding.view6)
             add(binding.view7)
+            add(binding.view8)
             add(binding.view9)
-            add(binding.view10)
-            add(binding.view11)
 
         }
     }
@@ -41,6 +41,21 @@ class GameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
        touch(tvOptions)
+//        charList.add('X')
+//        charList.add('0')
+//        charList.add('X')
+//        charList.add('0')
+//        Log.d("Mylog", "${charList.last()}")
+//        println("$charList")
+
+
+    }
+
+    private fun clearFields(list: List<TextView>){
+        for (view in list){
+            view.isClickable = true
+            view.text = ""
+        }
     }
 
     private fun touch(list: List<TextView>) {
@@ -48,18 +63,60 @@ class GameFragment : Fragment() {
         for (view in list) {
 
             view.setOnClickListener {
-                val lastItem = charList.last()
-               if(charList.isEmpty() || lastItem.equals("0") ){
-                   view.text = "X"
+//                var lastitem = charList.last()
+//                if (charList.isNotEmpty()){
+//                    val lastItem = charList.last()
+//                }
 
-               }else{
+               if(charList.isEmpty() ){
+                   view.text = "X"
+                   view.isClickable = false
+                   charList.add('X')
+                   if (checkWinner()) clearFields(list)
+
+               }else if (charList.isNotEmpty() && charList.size %2 != 0){
                    view.text = "0"
+                   view.isClickable = false
+                   charList.add('0')
+                   checkWinner()
+                   if (checkWinner()) clearFields(list)
+               }else if (charList.isNotEmpty() && charList.size %2 == 0){
+                   view.text = "X"
+                   view.isClickable = false
+                   charList.add('X')
+                   checkWinner()
+                   if (checkWinner()) clearFields(list)
                }
             }
 
         }
 
 
+    }
+    private fun checkWinner():Boolean = with(binding){
+        if (view1.text == "X"&&view2.text == "X"&&view3.text == "X"||
+            view4.text == "X"&&view5.text == "X"&&view6.text == "X"||
+            view7.text == "X"&&view8.text == "X"&&view9.text == "X"||
+            view1.text == "X"&&view4.text == "X"&&view7.text == "X"||
+            view2.text == "X"&&view5.text == "X"&&view8.text == "X"||
+            view3.text == "X"&&view6.text == "X"&&view9.text == "X"||
+            view1.text == "X"&&view5.text == "X"&&view9.text == "X"||
+            view3.text == "X"&&view5.text == "X"&&view7.text == "X"){
+            textView.text = getString(R.string.player1)
+            charList.clear()
+            return true
+        }else if (view1.text == "0"&&view2.text == "0"&&view3.text == "0"||
+                    view4.text == "0"&&view5.text == "0"&&view6.text == "0"||
+                    view7.text == "0"&&view8.text == "0"&&view9.text == "0"||
+                    view1.text == "0"&&view4.text == "0"&&view7.text == "0"||
+                    view2.text == "0"&&view5.text == "0"&&view8.text == "0"||
+                    view3.text == "0"&&view6.text == "0"&&view9.text == "0"||
+                    view1.text == "0"&&view5.text == "0"&&view9.text == "0"||
+                    view3.text == "0"&&view5.text == "0"&&view7.text == "0"){
+            binding.textView.text = getString(R.string.player0)
+            charList.clear()
+            return true
+        }else return false
     }
 
     override fun onDestroy() {
