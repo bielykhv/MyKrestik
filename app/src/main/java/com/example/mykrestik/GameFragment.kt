@@ -28,7 +28,7 @@ class GameFragment : Fragment() {
 
         }
     }
-    private var charList = mutableListOf<Char>()
+    private var charList = mutableListOf<Int>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,27 +57,24 @@ class GameFragment : Fragment() {
         for (view in list) {
 
             view.setOnClickListener {
-//                var lastitem = charList.last()
-//                if (charList.isNotEmpty()){
-//                    val lastItem = charList.last()
-//                }
+
 
                if(charList.isEmpty() ){
                    view.text = "X"
                    view.isClickable = false
-                   charList.add('X')
+                   charList.add(1)
                    if (checkWinner()) clearFields(list)
 
                }else if (charList.isNotEmpty() && charList.size %2 != 0){
                    view.text = "0"
                    view.isClickable = false
-                   charList.add('0')
+                   charList.add(1)
                    checkWinner()
                    if (checkWinner()) clearFields(list)
                }else if (charList.isNotEmpty() && charList.size %2 == 0){
                    view.text = "X"
                    view.isClickable = false
-                   charList.add('X')
+                   charList.add(1)
                    checkWinner()
                    if (checkWinner()) clearFields(list)
                }
