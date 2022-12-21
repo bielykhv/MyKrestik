@@ -2,6 +2,7 @@
     <string name="app_name">MyKrestik</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="player1">Player 1 win</string>
-    <string name="player0">Player0 win</string>
+    <string name="player1">Player X win</string>
+    <string name="player0">Player 0 win</string>
+    <string name="let_go">Lets go</string>
 </resources>

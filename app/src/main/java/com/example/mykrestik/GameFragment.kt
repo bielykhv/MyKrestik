@@ -1,13 +1,11 @@
 package com.example.mykrestik
 
-import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import com.example.mykrestik.databinding.FragmentGameBinding
 
 class GameFragment : Fragment() {
@@ -40,16 +38,21 @@ class GameFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-       touch(tvOptions)
+        touch(tvOptions)
+        binding.image.setOnClickListener {
+            clearFields(tvOptions)
+        }
 
 
     }
 
-    private fun clearFields(list: List<TextView>){
-        for (view in list){
+    private fun clearFields(list: List<TextView>) {
+        for (view in list) {
             view.isClickable = true
             view.text = ""
+
         }
+        binding.textView.text = getString(R.string.let_go)
     }
 
     private fun touch(list: List<TextView>) {
@@ -59,55 +62,61 @@ class GameFragment : Fragment() {
             view.setOnClickListener {
 
 
-               if(charList.isEmpty() ){
-                   view.text = "X"
-                   view.isClickable = false
-                   charList.add(1)
-                   if (checkWinner()) clearFields(list)
+                if (charList.isEmpty()) {
+                    view.text = "X"
+                    view.isClickable = false
+                    charList.add(1)
+                    checkWinner(list)
 
-               }else if (charList.isNotEmpty() && charList.size %2 != 0){
-                   view.text = "0"
-                   view.isClickable = false
-                   charList.add(1)
-                   checkWinner()
-                   if (checkWinner()) clearFields(list)
-               }else if (charList.isNotEmpty() && charList.size %2 == 0){
-                   view.text = "X"
-                   view.isClickable = false
-                   charList.add(1)
-                   checkWinner()
-                   if (checkWinner()) clearFields(list)
-               }
+                } else if (charList.isNotEmpty() && charList.size % 2 != 0) {
+                    view.text = "0"
+                    view.isClickable = false
+                    charList.add(1)
+                    checkWinner(list)
+
+                } else if (charList.isNotEmpty() && charList.size % 2 == 0) {
+                    view.text = "X"
+                    view.isClickable = false
+                    charList.add(1)
+                    checkWinner(list)
+
+                }
             }
 
         }
 
 
     }
-    private fun checkWinner():Boolean = with(binding){
-        if (view1.text == "X"&&view2.text == "X"&&view3.text == "X"||
-            view4.text == "X"&&view5.text == "X"&&view6.text == "X"||
-            view7.text == "X"&&view8.text == "X"&&view9.text == "X"||
-            view1.text == "X"&&view4.text == "X"&&view7.text == "X"||
-            view2.text == "X"&&view5.text == "X"&&view8.text == "X"||
-            view3.text == "X"&&view6.text == "X"&&view9.text == "X"||
-            view1.text == "X"&&view5.text == "X"&&view9.text == "X"||
-            view3.text == "X"&&view5.text == "X"&&view7.text == "X"){
+
+    private fun checkWinner(list: List<TextView>) = with(binding) {
+        if (view1.text == "X" && view2.text == "X" && view3.text == "X" ||
+            view4.text == "X" && view5.text == "X" && view6.text == "X" ||
+            view7.text == "X" && view8.text == "X" && view9.text == "X" ||
+            view1.text == "X" && view4.text == "X" && view7.text == "X" ||
+            view2.text == "X" && view5.text == "X" && view8.text == "X" ||
+            view3.text == "X" && view6.text == "X" && view9.text == "X" ||
+            view1.text == "X" && view5.text == "X" && view9.text == "X" ||
+            view3.text == "X" && view5.text == "X" && view7.text == "X"
+        ) {
             textView.text = getString(R.string.player1)
+            for (i in list) i.isClickable = false
             charList.clear()
-            return true
-        }else if (view1.text == "0"&&view2.text == "0"&&view3.text == "0"||
-                    view4.text == "0"&&view5.text == "0"&&view6.text == "0"||
-                    view7.text == "0"&&view8.text == "0"&&view9.text == "0"||
-                    view1.text == "0"&&view4.text == "0"&&view7.text == "0"||
-                    view2.text == "0"&&view5.text == "0"&&view8.text == "0"||
-                    view3.text == "0"&&view6.text == "0"&&view9.text == "0"||
-                    view1.text == "0"&&view5.text == "0"&&view9.text == "0"||
-                    view3.text == "0"&&view5.text == "0"&&view7.text == "0"){
+
+
+        } else if (view1.text == "0" && view2.text == "0" && view3.text == "0" ||
+            view4.text == "0" && view5.text == "0" && view6.text == "0" ||
+            view7.text == "0" && view8.text == "0" && view9.text == "0" ||
+            view1.text == "0" && view4.text == "0" && view7.text == "0" ||
+            view2.text == "0" && view5.text == "0" && view8.text == "0" ||
+            view3.text == "0" && view6.text == "0" && view9.text == "0" ||
+            view1.text == "0" && view5.text == "0" && view9.text == "0" ||
+            view3.text == "0" && view5.text == "0" && view7.text == "0"
+        ) {
             binding.textView.text = getString(R.string.player0)
+            for (i in list) i.isClickable = false
             charList.clear()
-            return true
-        }else return false
+
+        } else return
     }
 
     override fun onDestroy() {
